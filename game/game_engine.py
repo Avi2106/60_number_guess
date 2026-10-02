@@ -22,9 +22,7 @@ class GameEngine:
     def submit_guess(self):
         if self.game_won:
             return
-
-        # BUG SYMPTOM:
-        # Submitting an empty input box crashes the game immediately.
+            
         guess = int(self.input_box.text)
         
         self.attempts += 1
