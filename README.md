@@ -44,19 +44,20 @@ Each task must be completed using an iterative process involving LLM suggestions
 
 ### Task 1: Fix the empty input crash bug
 
-Submitting without typing any digits causes the game to crash immediately with a ValueError: invalid literal for int() with base 10: ''. In game_engine.submit_guess(), int(self.input_box.text) is called directly without verifying whether self.input_box.text contains any characters. Implement validation to check whether the input text is non-empty before converting it. If empty, prevent the conversion, preserve the attempt count, and update self.feedback_msg to prompt the player to enter a valid number first.
+Submitting a guess without typing any numbers causes the application to crash immediately with a value parsing error. Ensure that empty submissions are safely handled with a warning prompt without terminating the program or consuming an attempt.
 
-### Task 2: Implement dynamic range hints
+### Task 2: Implement dynamic search range display
 
-Currently, the game only tells the player whether their guess was higher or lower than the target. Enhance game_engine to maintain low_bound (initialized to 1) and high_bound (initialized to 100). Update these bounds after each valid guess and display the refined range on the screen (e.g., "Current Possible Range: 24 - 68") to help the player narrow down their choices.
+The game currently only provides one-off high or low indicators without keeping track of the narrowing search window. Track the valid minimum and maximum boundaries established by previous guesses and display the narrowed range on screen to guide the player's next move
 
-### Task 3: Implement an attempt history log
+### Task 3: Implement Recent Guess History Tracker
 
-Players currently only see the total number of attempts. Implement a visual guess history panel below or beside the feedback box that lists the player's last 5 guesses along with colored arrows or tags indicating whether each past guess was too high or too low.
+Players have no visual record of previous numbers they have already tested. Add a history log panel displaying the last several guesses alongside color-coded directional indicators showing whether each was too high or too low.
 
-### Task 4: Implement maximum attempts limit and Game Over state
+### Task 4: Implement maximum Attempts Constraint & Failure State
 
-Right now, players have infinite attempts to guess the number. Add a maximum allowance (e.g., 7 attempts). If the player fails to guess the number within the limit, trigger a GAME_OVER screen revealing the secret number and prompt them to press R to try again
+Players currently enjoy unlimited guesses, removing stakes from deduction. Introduce a strict attempt limit that triggers a Game Over screen revealing the hidden number if the player runs out of tries.
+
 ---
 
 ## Expected Behavior
