@@ -19,12 +19,19 @@ class GameEngine:
         self.font_medium = pygame.font.SysFont(None, 28)
         self.font_btn = pygame.font.SysFont(None, 26)
 
+    
     def submit_guess(self):
         if self.game_won:
             return
-            
+
+        # Prevent the game from crashing on empty input
+        if not self.input_box.text.strip():
+            self.feedback_msg = "Please enter a number!"
+            self.feedback_color = (255, 220, 80)
+            return
+
         guess = int(self.input_box.text)
-        
+
         self.attempts += 1
         self.input_box.clear()
 
@@ -38,6 +45,7 @@ class GameEngine:
             self.feedback_msg = f"CORRECT! Found in {self.attempts} attempts."
             self.feedback_color = (80, 220, 90)
             self.game_won = True
+
 
     def reset(self):
         self.secret_number = random.randint(1, 100)
